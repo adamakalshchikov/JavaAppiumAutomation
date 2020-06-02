@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import java.net.URL;
 
 public class FirstTest {
-        private AppiumDriver driver;
+        protected AppiumDriver driver;
 
         @Before
         public void setUp() throws Exception {
@@ -91,35 +91,35 @@ public class FirstTest {
 
         }
 
-        private WebElement waitForElementPresent(By by, String error_message, long timeOutInSeconds) {
+        protected WebElement waitForElementPresent(By by, String error_message, long timeOutInSeconds) {
                 WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
                 wait.withMessage(error_message + "\n");
                 return wait.until(ExpectedConditions.presenceOfElementLocated(by));
         }
 
-        private WebElement waitForElementPresent(By by, String error_message) {
+        protected WebElement waitForElementPresent(By by, String error_message) {
                 return waitForElementPresent(by, error_message, 5);
         }
 
-        private WebElement waitForElementAndClick(By by, String error_message, long timeOutInSeconds) {
+        protected WebElement waitForElementAndClick(By by, String error_message, long timeOutInSeconds) {
                 WebElement element = waitForElementPresent(by, error_message, timeOutInSeconds);
                 element.click();
                 return element;
         }
 
-        private WebElement waitForElementAndSendKeys(By by, String value, String error_message, long timeOutInSeconds) {
+        protected WebElement waitForElementAndSendKeys(By by, String value, String error_message, long timeOutInSeconds) {
                 WebElement element = waitForElementPresent(by, error_message, timeOutInSeconds);
                 element.sendKeys(value);
                 return element;
         }
 
-        private boolean waitForElementNotPresent(By by, String error_message, long timeOutInSeconds) {
+        protected boolean waitForElementNotPresent(By by, String error_message, long timeOutInSeconds) {
                 WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
                 wait.withMessage(error_message + "\n");
                 return wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
         }
 
-        private WebElement waitForElementAndClear(By by, String error_message, long timeOutInSeconds) {
+        protected WebElement waitForElementAndClear(By by, String error_message, long timeOutInSeconds) {
                 WebElement element = waitForElementPresent(by, error_message, timeOutInSeconds);
                 element.clear();
                 return element;
