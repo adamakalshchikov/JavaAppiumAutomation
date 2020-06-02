@@ -9,6 +9,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
 import java.net.URL;
 
 public class FirstTest {
@@ -66,7 +70,7 @@ public class FirstTest {
         }
 
         @Test
-        public void testCompareArticleTitle() {
+        public void compareArticleTitle() {
                 waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                                 "Cannot find input Search Wikipedia", 5);
 
@@ -76,14 +80,15 @@ public class FirstTest {
                 waitForElementAndClick(
                                 By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']"
                                                 + "//*[@text='Object-oriented programming language']"),
-                                "Cannot find search input keys", 5);
+                                "Cannot find element", 5);
 
-                WebElement titleElement = waitForElementPresent(By.id("org.wikipedia:id/view_page_title_text"),
-                                "Cannot find article title", 15);
+                WebElement articleTittleElement = waitForElementPresent(By.id("org.wikipedia:id/view_page_title_text"),
+                                "Article title not found", 15);
 
-                String articleTitle = titleElement.getAttribute("text");
+                String articleTittle = articleTittleElement.getAttribute("text"); 
+                
+                assertEquals("We see unexpected tittle" + articleTittle, "Java (programming language)", articleTittle);
 
-                Assert.assertEquals("We see unexpected title!", "Java (programming language)", articleTitle);
         }
 
         private WebElement waitForElementPresent(By by, String error_message, long timeOutInSeconds) {
