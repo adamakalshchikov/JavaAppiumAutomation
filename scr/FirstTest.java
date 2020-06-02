@@ -27,7 +27,7 @@ public class FirstTest
         capabilities.setCapability("appPackage", "org.wikipedia");
         capabilities.setCapability("appActivity", ".main.MainActivity");
         capabilities.setCapability("app",
-                "/Users/mihail/Desktop/JavaAppiumAutomation/apks/org.wikipedia.apk");
+                "C:\\Users\\a.damakalshchikov\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
     }
@@ -47,14 +47,14 @@ public class FirstTest
                 5
         );
 
-        waitForElemenAndSendKeys(
+        waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text, 'Search…')]"),
                 "Java",
                 "Cannot find search input",
                 5
         );
 
-        WebElement webElement = waitForElementPresent(
+        WebElement element = waitForElementPresent(
                 By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']" +
                         "//*[@text='Object-oriented programming language']"),
                 "Cannot find 'Object-oriented programming language'",
@@ -71,7 +71,7 @@ public class FirstTest
                 5
         );
 
-        waitForElemenAndSendKeys(
+        waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text, 'Search…')]"),
                 "Java",
                 "Cannot find search input",
@@ -106,7 +106,7 @@ public class FirstTest
                 5
         );
 
-        waitForElemenAndSendKeys(
+        waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text, 'Search…')]"),
                 "Java",
                 "Cannot find search input",
@@ -155,7 +155,7 @@ public class FirstTest
         return element;
     }
 
-    private WebElement waitForElemenAndSendKeys(By by, String value, String error_message, long timeOutInSeconds)
+    private WebElement waitForElementAndSendKeys(By by, String value, String error_message, long timeOutInSeconds)
     {
         WebElement element = waitForElementPresent(by, error_message, timeOutInSeconds);
         element.sendKeys(value);
