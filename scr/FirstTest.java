@@ -132,4 +132,10 @@ public class FirstTest {
                 return wait.until(
                 ExpectedConditions.presenceOfAllElementsLocatedBy(by));
     }
+
+        protected boolean waitForElementsAreNotPresented(List<WebElement> elements, String errorMessage, long timeOutInSeconds) {
+                WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+                wait.withMessage(errorMessage + "\n");
+                return wait.until(ExpectedConditions.invisibilityOfAllElements(elements));
+        }
 }
