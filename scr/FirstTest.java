@@ -154,4 +154,10 @@ public class FirstTest {
         protected void swipUpQuick() {
                 swipeUp(200);
         }
+
+        protected void swipeUpToFindElement(By by, String errorMessage) {
+                while(driver.findElements(by).size() == 0) {
+                        swipUpQuick();
+                }
+        }
 }
