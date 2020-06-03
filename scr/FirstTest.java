@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -123,5 +124,18 @@ public class FirstTest {
                 WebElement element = waitForElementPresent(by, error_message, timeOutInSeconds);
                 element.clear();
                 return element;
+        }
+
+        protected List<WebElement> waitForAllElements(By by, String errorMessage, long timeOutInSeconds) {
+                WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+                wait.withMessage(errorMessage + "\n");
+                return wait.until(
+                ExpectedConditions.presenceOfAllElementsLocatedBy(by));
+    }
+
+        protected boolean waitForElementsAreNotPresented(List<WebElement> elements, String errorMessage, long timeOutInSeconds) {
+                WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+                wait.withMessage(errorMessage + "\n");
+                return wait.until(ExpectedConditions.invisibilityOfAllElements(elements));
         }
 }
