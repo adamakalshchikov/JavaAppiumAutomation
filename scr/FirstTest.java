@@ -150,4 +150,8 @@ public class FirstTest {
 
                 action.press(x,startY).waitAction(timeOfSwipe).moveTo(x,endY).release().perform();
         }
+
+        protected void swipUpQuick() {
+                swipeUp(200);
+        }
 }
