@@ -8,16 +8,13 @@ public class complexTests extends FirstTest {
         waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find input Search Wikipedia", 5);
 
-        waitForElementAndSendKeys(By.xpath("//*[contains(@text, 'Search…')]"), "Java", "Cannot find search input", 5);
+        waitForElementAndSendKeys(By.xpath("//*[contains(@text, 'Search…')]"), "Appium", "Cannot find search input", 5);
 
-        waitForElementAndClick(By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']"
-                + "//*[@text='Object-oriented programming language']"), "Cannot find element", 5);
-        
-        swipeUp(2000);
-        swipeUp(2000);
-        swipeUp(2000);
-        swipeUp(2000);
-        swipeUp(2000);
+        waitForElementAndClick(By.xpath("//*[@class='android.widget.TextView' and @text='Appium']"),
+                "Cannot find 'Appium article' in search", 10);
+
+        swipeUpToFindElement(By.xpath("//*[@text='View page in browser']"), "Element not found");
+
     }
 
 }
