@@ -152,7 +152,12 @@ public class FirstTest {
                 int startY = (int) (size.height * 0.8);
                 int endY = (int) (size.height * 0.2);
 
-                action.press(x, startY).waitAction(timeOfSwipe).moveTo(x, endY).release().perform();
+                action
+                        .press(x, startY)
+                        .waitAction(timeOfSwipe)
+                        .moveTo(x, endY)
+                        .release()
+                        .perform();
         }
 
         protected void swipUpQuick() {
@@ -178,7 +183,7 @@ public class FirstTest {
 
                 action
                         .press(rigt_x, middle_y)
-                        .waitAction(150)
+                        .waitAction(300)
                         .moveTo(left_x, middle_y)
                         .release()
                         .perform();
