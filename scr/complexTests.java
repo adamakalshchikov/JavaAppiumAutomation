@@ -1,5 +1,5 @@
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 
 public class complexTests extends FirstTest {
@@ -74,13 +74,23 @@ public class complexTests extends FirstTest {
 
         @Test
         public void testAmountOfNotEmptySearch() {
-                String searchLine = "Linkin Park discography";
+                String searchLine = "Linkin Park Discography";
 
                 waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                                 "Cannot find input Search Wikipedia", 5);
 
                 waitForElementAndSendKeys(By.xpath("//*[contains(@text, 'Search…')]"), searchLine,
                                 "Cannot find search input", 5);
+
+                String searchResultLocator = "//*[@resource-id='org.wikipedia:id/search_results_list']"
+                                + "/*[@resource-id='org.wikipedia:id/page_list_item_container']";
+                waitForElementPresent(By.xpath(searchResultLocator),
+                                "Cannot find any results of search by " + searchLine, 15);
+
+                int amountOfSearchResults = getAmountOfElements(By.xpath(searchResultLocator));
+
+                assertTrue("We found too few results", amountOfSearchResults > 0);
+
         }
 
 }
