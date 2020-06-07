@@ -145,6 +145,11 @@ public class FirstTest {
                 return wait.until(ExpectedConditions.invisibilityOfAllElements(elements));
         }
 
+        protected int getAmountOfElements(By by) {
+                List elements = driver.findElements(by);
+                return elements.size();
+        }
+
         protected void swipeUp(int timeOfSwipe) {
                 TouchAction action = new TouchAction(driver);
                 Dimension size = driver.manage().window().getSize();
