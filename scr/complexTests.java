@@ -1,6 +1,8 @@
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ScreenOrientation;
 
 public class complexTests extends FirstTest {
         @Test
@@ -107,10 +109,45 @@ public class complexTests extends FirstTest {
                                 + "/*[@resource-id='org.wikipedia:id/page_list_item_container']";
                 String emptyResultLabel = "//*[@text='No results found']";
 
-               waitForElementPresent(By.xpath(emptyResultLabel), "Cannot find empty result labes" + searchLine, 15);
-                
-                assertElementNotPresent(By.xpath(searchResultLocator), "We've found some result by request");
+                waitForElementPresent(By.xpath(emptyResultLabel), "Cannot find empty result labes" + searchLine, 15);
 
+                assertElementNotPresent(By.xpath(searchResultLocator), "We've found some result by request");
+        }
+
+        @Test
+        public void testChangeScreenOrientationOnSearchResult() {
+                String searchLine = "Java";
+
+                waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                                "Cannot find input Search Wikipedia", 5);
+
+                waitForElementAndSendKeys(By.xpath("//*[contains(@text, 'Search…')]"), searchLine,
+                                "Cannot find search input", 5);
+
+                waitForElementAndClick(
+                                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']"
+                                                + "//*[@text='Object-oriented programming language']"),
+                                "Cannot find 'Object-oriented programming language' topic searching by", 15);
+
+                String tittleBeforeRotation = waitForElementAndGetAttribute(
+                                By.id("org.wikipedia:id/view_page_title_text"), "text", "Cannot find article tittle",
+                                15);
+
+                driver.rotate(ScreenOrientation.LANDSCAPE);
+                String tittleAfterRotation = waitForElementAndGetAttribute(
+                                By.id("org.wikipedia:id/view_page_title_text"), "text", "Cannot find article tittle",
+                                15);
+
+                assertEquals("Article tittle has been changed after screen rotation", tittleBeforeRotation,
+                                tittleAfterRotation);
+
+                driver.rotate(ScreenOrientation.PORTRAIT);
+                String tittleAfterSecondRotation = waitForElementAndGetAttribute(
+                                By.id("org.wikipedia:id/view_page_title_text"), "text", "Cannot find article tittle",
+                                15);
+
+                assertEquals("Article tittle has been changed after screen rotation", tittleBeforeRotation,
+                                tittleAfterSecondRotation);
         }
 
 }
