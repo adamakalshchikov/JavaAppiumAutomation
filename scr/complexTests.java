@@ -93,4 +93,24 @@ public class complexTests extends FirstTest {
 
         }
 
+        @Test
+        public void amountOfEmptySearch() {
+                String searchLine = "sdfa;wijw";
+
+                waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                                "Cannot find input Search Wikipedia", 5);
+
+                waitForElementAndSendKeys(By.xpath("//*[contains(@text, 'Search…')]"), searchLine,
+                                "Cannot find search input", 5);
+
+                String searchResultLocator = "//*[@resource-id='org.wikipedia:id/search_results_list']"
+                                + "/*[@resource-id='org.wikipedia:id/page_list_item_container']";
+                String emptyResultLabel = "//*[@text='No results found']";
+
+               waitForElementPresent(By.xpath(emptyResultLabel), "Cannot find empty result labes" + searchLine, 15);
+                
+                assertElementNotPresent(By.xpath(searchResultLocator), "We've found some result by request");
+
+        }
+
 }

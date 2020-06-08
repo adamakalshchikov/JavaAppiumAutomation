@@ -193,4 +193,13 @@ public class FirstTest {
                         .release()
                         .perform();
         }
+
+        protected void assertElementNotPresent(By by, String errorMessage) {
+                int amountOfElements = getAmountOfElements(by);
+
+                if (amountOfElements > 0) {
+                        String defaultMessage = "An element '" + by.toString() + "' supposed to be not present";
+                        throw new AssertionError(defaultMessage + " " + errorMessage);
+                }
+        }
 }
