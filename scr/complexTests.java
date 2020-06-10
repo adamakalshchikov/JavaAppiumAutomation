@@ -150,4 +150,24 @@ public class complexTests extends FirstTest {
                                 tittleAfterSecondRotation);
         }
 
+        @Test
+        public void testCheckSearchArticleInBackground() {
+                waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                                "Cannot find input Search Wikipedia", 5);
+
+                waitForElementAndSendKeys(By.xpath("//*[contains(@text, 'Search…')]"), "Java",
+                                "Cannot find search input", 5);
+
+                waitForElementPresent(By
+                                .xpath("//*[@class='android.widget.TextView' and @text='Java (programming language)']"),
+                                "Cannot find 'Java article' in search", 10);
+
+                driver.runAppInBackground(2);
+
+                waitForElementPresent(By
+                                .xpath("//*[@class='android.widget.TextView' and @text='Java (programming language)']"),
+                                "Cannot find 'Java article' after returning from background", 10);
+
+        }
+
 }
