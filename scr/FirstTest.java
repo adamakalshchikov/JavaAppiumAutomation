@@ -155,12 +155,7 @@ public class FirstTest {
                 int startY = (int) (size.height * 0.8);
                 int endY = (int) (size.height * 0.2);
 
-                action
-                        .press(x, startY)
-                        .waitAction(timeOfSwipe)
-                        .moveTo(x, endY)
-                        .release()
-                        .perform();
+                action.press(x, startY).waitAction(timeOfSwipe).moveTo(x, endY).release().perform();
         }
 
         protected void swipUpQuick() {
@@ -184,12 +179,7 @@ public class FirstTest {
 
                 TouchAction action = new TouchAction(driver);
 
-                action
-                        .press(rigt_x, middle_y)
-                        .waitAction(300)
-                        .moveTo(left_x, middle_y)
-                        .release()
-                        .perform();
+                action.press(rigt_x, middle_y).waitAction(300).moveTo(left_x, middle_y).release().perform();
         }
 
         protected void assertElementNotPresent(By by, String errorMessage) {
@@ -201,7 +191,18 @@ public class FirstTest {
                 }
         }
 
-        protected String waitForElementAndGetAttribute(By by, String attribute, String errorMessage, long timeOutInSeconds) {
+        protected void assertElementPresent(By by, String errorMessage) {
+                int amountOfElements = getAmountOfElements(by);
+
+                if (amountOfElements < 1) {
+                        String defaultMessage = "An element '" + by.toString() + "' supposed to be present";
+                        throw new AssertionError(defaultMessage + " " + errorMessage);
+                }
+
+        }
+
+        protected String waitForElementAndGetAttribute(By by, String attribute, String errorMessage,
+                        long timeOutInSeconds) {
                 WebElement element = waitForElementPresent(by, errorMessage, timeOutInSeconds);
                 return element.getAttribute(attribute);
         }
