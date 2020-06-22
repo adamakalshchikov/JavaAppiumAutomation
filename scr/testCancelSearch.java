@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 public class testCancelSearch extends FirstTest {
     @Test
-    public void testCancelSearch() {
+    public void testCancelSearchElement() {
         waitForElementAndClick(By.id("org.wikipedia:id/search_container"), "Cannot find input 'Search Wikipedia'", 5);
 
         waitForElementAndSendKeys(By.id("org.wikipedia:id/search_src_text"), "wiki", "Cannot find search line", 5);

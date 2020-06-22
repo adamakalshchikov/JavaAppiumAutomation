@@ -1,5 +1,3 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ScreenOrientation;
@@ -21,7 +19,7 @@ public class complexTests extends FirstTest {
         }
 
         @Test
-        public void saveFirstArticleToMyList() {
+        public void testSaveFirstArticleToMyList() {
                 waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                                 "Cannot find input Search Wikipedia", 5);
 
@@ -96,7 +94,7 @@ public class complexTests extends FirstTest {
         }
 
         @Test
-        public void amountOfEmptySearch() {
+        public void testAmountOfEmptySearch() {
                 String searchLine = "sdfa;wijw";
 
                 waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
