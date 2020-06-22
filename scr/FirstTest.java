@@ -12,7 +12,7 @@ import java.util.List;
 
 
 public class FirstTest extends CoreTestCase {
-        private MainPageObject MainPageObject;
+        protected MainPageObject MainPageObject;
 
         protected void setUp() throws Exception
         {
