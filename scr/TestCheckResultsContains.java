@@ -8,11 +8,11 @@ import junit.framework.Assert;
 public class TestCheckResultsContains extends FirstTest {
     @Test
     public void checkResultsContains() {
-        waitForElementAndClick(By.id("org.wikipedia:id/search_container"), "Cannot find input 'Search Wikipedia'", 5);
+        MainPageObject.waitForElementAndClick(By.id("org.wikipedia:id/search_container"), "Cannot find input 'Search Wikipedia'", 5);
 
-        waitForElementAndSendKeys(By.id("org.wikipedia:id/search_src_text"), "wiki", "Cannot find search line", 5);
+        MainPageObject.waitForElementAndSendKeys(By.id("org.wikipedia:id/search_src_text"), "wiki", "Cannot find search line", 5);
 
-        List<WebElement> elements = waitForAllElements(By.id("org.wikipedia:id/page_list_item_title"),
+        List<WebElement> elements = MainPageObject.waitForAllElements(By.id("org.wikipedia:id/page_list_item_title"),
                 "No any elements found", 10);
         Iterator<WebElement> it = elements.listIterator();
 
