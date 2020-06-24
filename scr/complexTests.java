@@ -1,21 +1,20 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ScreenOrientation;
+import lib.ui.SearchPageObject;
+import lib.ui.ArticlePageObject;
 
 public class complexTests extends FirstTest {
         @Test
         public void testSwipeArticle() {
-                MainPageObject.waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                                "Cannot find input Search Wikipedia", 5);
-
-                MainPageObject.waitForElementAndSendKeys(By.xpath("//*[contains(@text, 'Search…')]"), "Appium",
-                                "Cannot find search input", 5);
-
-                MainPageObject.waitForElementAndClick(By.xpath("//*[@class='android.widget.TextView' and @text='Appium']"),
-                                "Cannot find 'Appium article' in search", 10);
-
-                MainPageObject.swipeUpToFindElement(By.xpath("//*[@text='View page in browser']"), "Element not found");
-
+                SearchPageObject searchPageObject = new SearchPageObject(driver);
+                searchPageObject.initSearchInput();
+                searchPageObject.typeSearchLine("Appium");
+                searchPageObject.clickByArticleWithSubstring("Appium");
+                
+                ArticlePageObject articlePageObject = new ArticlePageObject(driver);
+                articlePageObject.waitForTittleElement();
+                articlePageObject.swipeToFooter();
         }
 
         @Test
@@ -30,18 +29,21 @@ public class complexTests extends FirstTest {
                                 .xpath("//*[@class='android.widget.TextView' and @text='Java (programming language)']"),
                                 "Cannot find 'Java article' in search", 10);
 
-                MainPageObject.waitForElementPresent(By.id("org.wikipedia:id/view_page_title_text"), "Article title not found", 15);
+                MainPageObject.waitForElementPresent(By.id("org.wikipedia:id/view_page_title_text"),
+                                "Article title not found", 15);
 
-                MainPageObject.waitForElementAndClick(By.xpath("//android.widget.ImageView[@content-desc='More options']"),
+                MainPageObject.waitForElementAndClick(
+                                By.xpath("//android.widget.ImageView[@content-desc='More options']"),
                                 "Cannot find 'More options btn'", 5);
 
                 MainPageObject.waitForElementAndClick(By.xpath("//*[@text='Add to reading list']"),
                                 "Cannot find 'Add to reading list btn'", 5);
 
-                MainPageObject.waitForElementAndClick(By.id("org.wikipedia:id/onboarding_button"), "Cannot find 'Got it btn'", 5);
+                MainPageObject.waitForElementAndClick(By.id("org.wikipedia:id/onboarding_button"),
+                                "Cannot find 'Got it btn'", 5);
 
-                MainPageObject.waitForElementAndClear(By.id("org.wikipedia:id/text_input"), "Cannot find input for reading list name",
-                                5);
+                MainPageObject.waitForElementAndClear(By.id("org.wikipedia:id/text_input"),
+                                "Cannot find input for reading list name", 5);
 
                 String nameofFolder = "Learning programming";
 
@@ -107,9 +109,11 @@ public class complexTests extends FirstTest {
                                 + "/*[@resource-id='org.wikipedia:id/page_list_item_container']";
                 String emptyResultLabel = "//*[@text='No results found']";
 
-                MainPageObject.waitForElementPresent(By.xpath(emptyResultLabel), "Cannot find empty result labes" + searchLine, 15);
+                MainPageObject.waitForElementPresent(By.xpath(emptyResultLabel),
+                                "Cannot find empty result labes" + searchLine, 15);
 
-                MainPageObject.assertElementNotPresent(By.xpath(searchResultLocator), "We've found some result by request");
+                MainPageObject.assertElementNotPresent(By.xpath(searchResultLocator),
+                                "We've found some result by request");
         }
 
         @Test
