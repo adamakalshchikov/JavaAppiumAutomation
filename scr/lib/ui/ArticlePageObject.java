@@ -10,19 +10,23 @@ public class ArticlePageObject extends MainPageObject {
     }
 
     // static values of locator
-    private static String TITLE_VALUE = "org.wikipedia:id/view_page_title_text";
-
+    private static String TITLE_VALUE = "org.wikipedia:id/view_page_title_text",
+            FOOTER_ELEMENT_VALUE = "//*[@text='View page in browser']";
 
     // static locators
-    private static By TITLE = By.id(TITLE_VALUE);
-    
+    private static By TITLE = By.id(TITLE_VALUE), FOOTER_ELEMENT = By.xpath(FOOTER_ELEMENT_VALUE);
+
     public WebElement waitForTittleElement() {
-        return this.waitForElementPresent(TITLE, "Cannot find article's title on page by " + TITLE, 15);
+        return this.waitForElementPresent(TITLE, "Cannot find article's title on page " + TITLE, 15);
     }
 
     public String getArticleTitle() {
         WebElement titleElement = waitForTittleElement();
         return titleElement.getAttribute("text");
     }
-    
+
+    public void swipeToFooter() {
+        this.swipeUpToFindElement(FOOTER_ELEMENT, "Cannot find the end of article " + FOOTER_ELEMENT, 20);
+    }
+
 }
