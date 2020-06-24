@@ -59,4 +59,10 @@ public class SearchPageObject extends MainPageObject {
         this.waitForElementAndClick(SEARCH_CANCEL_BTN,
                 "Cannot find and click search cancel button " + SEARCH_CANCEL_BTN, 5);
     }
+
+    public void clickByArticleWithSubstring(String substring) {
+        setResultSearchElement(substring);
+        this.waitForElementAndClick(SEARCH_RESULT_BY_SUBSTRING_TPL,
+                "Cannot find and click searchresult with substring " + substring + SEARCH_RESULT_BY_SUBSTRING_TPL, 10);
+    }
 }
