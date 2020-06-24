@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
+import org.openqa.selenium.NoSuchElementException;
+
 
 public class MainPageObject {
 
@@ -83,9 +85,13 @@ public class MainPageObject {
         swipeUp(200);
     }
 
-    public void swipeUpToFindElement(By by, String errorMessage) {
+    public void swipeUpToFindElement(By by, String errorMessage, int maxSwipes) {
+        int swipesPerformed = 0;
         while (driver.findElements(by).size() == 0) {
             swipUpQuick();
+            swipesPerformed++;
+            if (swipesPerformed > maxSwipes)
+                throw new NoSuchElementException("Max swipes number exceeded " + String.valueOf(maxSwipes));
         }
     }
 
@@ -122,8 +128,7 @@ public class MainPageObject {
 
     }
 
-    public String waitForElementAndGetAttribute(By by, String attribute, String errorMessage,
-            long timeOutInSeconds) {
+    public String waitForElementAndGetAttribute(By by, String attribute, String errorMessage, long timeOutInSeconds) {
         WebElement element = waitForElementPresent(by, errorMessage, timeOutInSeconds);
         return element.getAttribute(attribute);
     }
