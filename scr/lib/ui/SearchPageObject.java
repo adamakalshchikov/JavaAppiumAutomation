@@ -11,15 +11,18 @@ public class SearchPageObject extends MainPageObject {
     // static values of locator
     private static final String SEARCH_INIT_ELEMENT_VALUE = "//*[contains(@text, 'Search Wikipedia')]",
             SEARCH_INPUT_VALUE = "//*[contains(@text, 'Search…')]",
-            SEARCH_CANCEL_BTN_VALUE = "org.wikipedia:id/search_close_btn";
+            SEARCH_CANCEL_BTN_VALUE = "org.wikipedia:id/search_close_btn",
+            SEARCH_RESULT_LOCATOR_VALUE = "//*[@resource-id='org.wikipedia:id/search_results_list']"
+                + "/*[@resource-id='org.wikipedia:id/page_list_item_container']";
 
     // mutable values of locator
     private static String SEARCH_RESULT_VALUE = "//*[@resource-id='org.wikipedia:id/page_list_item_container']"
             + "//*[@text='{SUBSTRING}']";
 
-    // static locators
+    // constant locators
     private static final By SEARCH_INIT_ELEMENT = By.xpath(SEARCH_INIT_ELEMENT_VALUE),
-            SEARCH_INPUT = By.xpath(SEARCH_INPUT_VALUE), SEARCH_CANCEL_BTN = By.id(SEARCH_CANCEL_BTN_VALUE);
+            SEARCH_INPUT = By.xpath(SEARCH_INPUT_VALUE), SEARCH_CANCEL_BTN = By.id(SEARCH_CANCEL_BTN_VALUE),
+            SEARCH_RESULT_LOCATOR = By.xpath(SEARCH_RESULT_LOCATOR_VALUE);
 
     // mutable locators
     private static By SEARCH_RESULT_BY_SUBSTRING_TPL = By.xpath(SEARCH_RESULT_VALUE);
@@ -64,5 +67,13 @@ public class SearchPageObject extends MainPageObject {
         setResultSearchElement(substring);
         this.waitForElementAndClick(SEARCH_RESULT_BY_SUBSTRING_TPL,
                 "Cannot find and click searchresult with substring " + substring + SEARCH_RESULT_BY_SUBSTRING_TPL, 10);
+    }
+
+    public int getAmountOfFoundArticles() {
+        this.waitForElementPresent(SEARCH_RESULT_LOCATOR,
+                "Cannot find any results of search " + SEARCH_RESULT_LOCATOR, 15);
+
+        int amountOfSearchResults = this.getAmountOfElements(SEARCH_RESULT_LOCATOR);
+        return amountOfSearchResults;
     }
 }
