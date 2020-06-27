@@ -13,7 +13,8 @@ public class SearchPageObject extends MainPageObject {
             SEARCH_INPUT_VALUE = "//*[contains(@text, 'Search…')]",
             SEARCH_CANCEL_BTN_VALUE = "org.wikipedia:id/search_close_btn",
             SEARCH_RESULT_LOCATOR_VALUE = "//*[@resource-id='org.wikipedia:id/search_results_list']"
-                + "/*[@resource-id='org.wikipedia:id/page_list_item_container']";
+                + "/*[@resource-id='org.wikipedia:id/page_list_item_container']",
+            SEARCH_EMPTY_RESULT_ELEMENT_VALUE = "//*[@text='No results found']";
 
     // mutable values of locator
     private static String SEARCH_RESULT_VALUE = "//*[@resource-id='org.wikipedia:id/page_list_item_container']"
@@ -22,7 +23,8 @@ public class SearchPageObject extends MainPageObject {
     // constant locators
     private static final By SEARCH_INIT_ELEMENT = By.xpath(SEARCH_INIT_ELEMENT_VALUE),
             SEARCH_INPUT = By.xpath(SEARCH_INPUT_VALUE), SEARCH_CANCEL_BTN = By.id(SEARCH_CANCEL_BTN_VALUE),
-            SEARCH_RESULT_LOCATOR = By.xpath(SEARCH_RESULT_LOCATOR_VALUE);
+            SEARCH_RESULT_LOCATOR = By.xpath(SEARCH_RESULT_LOCATOR_VALUE),
+            SEARCH_EMPTY_RESULT_ELEMENT = By.xpath(SEARCH_EMPTY_RESULT_ELEMENT_VALUE);
 
     // mutable locators
     private static By SEARCH_RESULT_BY_SUBSTRING_TPL = By.xpath(SEARCH_RESULT_VALUE);
@@ -75,5 +77,9 @@ public class SearchPageObject extends MainPageObject {
 
         int amountOfSearchResults = this.getAmountOfElements(SEARCH_RESULT_LOCATOR);
         return amountOfSearchResults;
+    }
+
+    public void waitForEmptyResultsLabel() {
+        this.waitForElementPresent(SEARCH_EMPTY_RESULT_ELEMENT, "Cannot find empty result element label " + SEARCH_EMPTY_RESULT_ELEMENT);
     }
 }
