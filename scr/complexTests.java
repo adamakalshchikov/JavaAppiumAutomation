@@ -46,6 +46,10 @@ public class complexTests extends FirstTest {
         public void testAmountOfNotEmptySearch() {
                 String searchLine = "Linkin Park Discography";
 
+                SearchPageObject searchPageObject = new SearchPageObject(driver);
+                searchPageObject.initSearchInput();
+                searchPageObject.typeSearchLine(searchLine);
+
                 MainPageObject.waitForElementAndClick(By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                                 "Cannot find input Search Wikipedia", 5);
 
